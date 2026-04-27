@@ -1,11 +1,3 @@
-'use client';
-
-import { useLayout } from "@/context/LayoutContext";
-
 export default function Home() {
-  const { layout } = useLayout();
-
-  return (
-    <main>Layout ativo: {layout}</main>
-  );
+  return <main style={{ color: 'var(--fg1)', padding: 40 }}>Setup OK</main>;
 }
