@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Gemunu_Libre } from "next/font/google";
 import "./globals.css";
-import { LayoutProvider } from "@/context/LayoutContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const gemunuLibre = Gemunu_Libre({
+  variable: "--font-gemunu",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -24,13 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <LayoutProvider>{children}</LayoutProvider>
-      </body>
+    <html lang="pt-BR" className={gemunuLibre.variable}>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }
