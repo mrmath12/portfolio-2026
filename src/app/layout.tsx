@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Gemunu_Libre } from "next/font/google";
+import { LayoutProvider } from "@/context/LayoutContext";
 import "./globals.css";
 
 const gemunuLibre = Gemunu_Libre({
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className={gemunuLibre.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <LayoutProvider>{children}</LayoutProvider>
+      </body>
     </html>
   );
 }
