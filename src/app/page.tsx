@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import SectionDivider from '@/components/layout/SectionDivider';
 import Hero from '@/components/sections/Hero';
 import Projects from '@/components/sections/Projects';
+import Skills from '@/components/sections/Skills';
 
 export default function Home() {
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
@@ -27,7 +28,9 @@ export default function Home() {
         <Projects onProjectClick={handleProjectClick} />
       </section>
       <SectionDivider id="div2" />
-      <section id="skills" style={{ minHeight: 400, padding: '100px 40px' }} />
+      <section id="skills" style={{ padding: '100px 40px' }}>
+        <Skills />
+      </section>
       <SectionDivider id="div3" />
       <section id="sobre" style={{ minHeight: 400, padding: '100px 40px' }} />
       <SectionDivider id="div4" />
