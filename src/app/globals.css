@@ -66,3 +66,5 @@ section { scroll-margin-top: 62px; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+
+.contact-field::placeholder { color: #3a5c4e; }

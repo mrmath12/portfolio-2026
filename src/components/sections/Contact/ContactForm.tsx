@@ -85,6 +85,7 @@ export default function ContactForm() {
             type="text"
             placeholder="Seu nome"
             required
+            className="contact-field"
             style={inputStyle('nome')}
             onFocus={() => setFocused('nome')}
             onBlur={() => setFocused(null)}
@@ -95,6 +96,7 @@ export default function ContactForm() {
             type="email"
             placeholder="seu@email.com"
             required
+            className="contact-field"
             style={inputStyle('email')}
             onFocus={() => setFocused('email')}
             onBlur={() => setFocused(null)}
@@ -106,6 +108,7 @@ export default function ContactForm() {
         <input
           type="text"
           placeholder="Ex: Web App, API, Mobile, Landing Page…"
+          className="contact-field"
           style={inputStyle('tipo')}
           onFocus={() => setFocused('tipo')}
           onBlur={() => setFocused(null)}
@@ -116,6 +119,7 @@ export default function ContactForm() {
         <textarea
           required
           placeholder="Conta mais sobre o projeto…"
+          className="contact-field"
           style={{
             ...inputStyle('mensagem'),
             height: '110px',
