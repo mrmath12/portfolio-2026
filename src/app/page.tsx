@@ -7,6 +7,8 @@ import SectionDivider from '@/components/layout/SectionDivider';
 import Hero from '@/components/sections/Hero';
 import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
+import About from '@/components/sections/About';
+import Contact from '@/components/sections/Contact';
 
 export default function Home() {
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
@@ -32,9 +34,11 @@ export default function Home() {
         <Skills />
       </section>
       <SectionDivider id="div3" />
-      <section id="sobre" style={{ minHeight: 400, padding: '100px 40px' }} />
+      <About />
       <SectionDivider id="div4" />
-      <section id="contato" style={{ minHeight: 400, padding: '100px 40px' }} />
+      <section id="contato">
+        <Contact />
+      </section>
       <Footer />
     </>
   );
