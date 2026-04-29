@@ -28,6 +28,7 @@ export default function HeroEditorial() {
 
   return (
     <div
+      className="hero-editorial-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '1fr 380px',

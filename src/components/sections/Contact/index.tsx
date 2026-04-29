@@ -10,6 +10,7 @@ const INFO_ITEMS = [
 export default function Contact() {
   return (
     <div
+      className="contact-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1.2fr',

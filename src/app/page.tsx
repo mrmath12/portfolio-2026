@@ -13,6 +13,7 @@ import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Modal from '@/components/Modal';
 import Marquee from '@/components/Marquee';
+import TweaksPanel from '@/components/TweaksPanel';
 
 export default function Home() {
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
@@ -57,6 +58,7 @@ export default function Home() {
       </section>
       <Footer />
       <Modal projectId={selectedProjectId} onClose={() => setSelectedProjectId(null)} />
+      <TweaksPanel />
     </>
   );
 }

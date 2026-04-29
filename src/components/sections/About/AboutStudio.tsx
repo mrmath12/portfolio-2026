@@ -45,7 +45,7 @@ export default function AboutStudio() {
       <div style={{ height: '1px', background: 'var(--border)', margin: '32px 0' }} />
 
       <div
-        className="reveal"
+        className="reveal about-studio-stats"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
