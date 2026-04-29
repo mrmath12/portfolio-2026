@@ -25,7 +25,7 @@ export default function AboutDefault() {
       }}
     >
       {/* Left column */}
-      <div>
+      <div className="reveal">
         <SectionLabel variant="accent">Sobre</SectionLabel>
 
         <h2
@@ -78,7 +78,7 @@ export default function AboutDefault() {
       </div>
 
       {/* Right column */}
-      <div>
+      <div className="reveal" style={{ transitionDelay: '120ms' }}>
         <div
           style={{
             borderRadius: '12px',

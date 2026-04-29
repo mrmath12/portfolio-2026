@@ -42,7 +42,7 @@ export default function HeroEditorial() {
     >
       {/* Left column */}
       <div
-        className="reveal visible"
+        className="reveal"
         style={{ display: 'flex', flexDirection: 'column', gap: 26 }}
       >
         <div
@@ -122,7 +122,7 @@ export default function HeroEditorial() {
 
       {/* Right column */}
       <div
-        className="reveal visible"
+        className="reveal"
         style={{ position: 'relative', transitionDelay: '150ms' }}
       >
         <div

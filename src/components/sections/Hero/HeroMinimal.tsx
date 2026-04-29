@@ -38,7 +38,7 @@ export default function HeroMinimal() {
       </div>
 
       <h1
-        className="reveal visible"
+        className="reveal"
         style={{
           fontSize: 'clamp(72px, 12vw, 170px)',
           fontWeight: 800,
@@ -61,7 +61,7 @@ export default function HeroMinimal() {
       </h1>
 
       <div
-        className="reveal visible"
+        className="reveal"
         style={{
           display: 'flex',
           alignItems: 'flex-end',
@@ -90,7 +90,7 @@ export default function HeroMinimal() {
 
         {/* Right: role pills */}
         <div
-          className="reveal visible"
+          className="reveal"
           style={{
             display: 'flex',
             gap: 8,

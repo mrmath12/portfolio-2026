@@ -15,7 +15,7 @@ export default function Skills() {
       }}
     >
       {/* Left column */}
-      <div>
+      <div className="reveal">
         <SectionLabel>Stack</SectionLabel>
         <h2
           style={{
@@ -73,7 +73,7 @@ export default function Skills() {
       </div>
 
       {/* Right column */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '24px', transitionDelay: '120ms' }}>
         {Object.entries(SKILLS_DATA).map(([cat, skills]) => {
           const isCreative = CREATIVE_CATEGORIES.includes(cat);
           return (
