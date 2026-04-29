@@ -17,6 +17,7 @@ const SKILL_TAGS = [
 export default function AboutDefault() {
   return (
     <div
+      className="about-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',

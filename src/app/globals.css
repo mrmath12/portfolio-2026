@@ -71,3 +71,31 @@ section { scroll-margin-top: 62px; }
 
 .modal-box::-webkit-scrollbar { width: 3px; }
 .modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none !important; }
+
+  #projetos, #skills, #sobre, #contato { padding: 60px 20px !important; }
+
+  .hero-studio-grid {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+  .hero-studio-right { display: none !important; }
+
+  .hero-editorial-grid {
+    grid-template-columns: 1fr !important;
+    padding: 100px 20px 60px !important;
+    gap: 40px !important;
+  }
+
+  .skills-grid  { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .about-grid   { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    padding: 60px 20px !important;
+  }
+
+  .about-studio-stats { grid-template-columns: repeat(2, 1fr) !important; }
+}

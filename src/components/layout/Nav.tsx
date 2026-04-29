@@ -45,7 +45,7 @@ export default function Nav() {
           M<span className="text-[var(--brand)]">.</span>
         </a>
 
-        <div className="flex">
+        <div className="flex nav-links">
           {links.map(({ label, section }) => (
             <a
               key={section}
@@ -67,7 +67,7 @@ export default function Nav() {
 
         <a
           href="#contato"
-          className="border-l border-[rgba(42,60,53,0.5)] text-[var(--brand)] px-10 py-[18px] text-[13px] font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-200 hover:text-[var(--brand-lt)]"
+          className="nav-cta border-l border-[rgba(42,60,53,0.5)] text-[var(--brand)] px-10 py-[18px] text-[13px] font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-200 hover:text-[var(--brand-lt)]"
         >
           Fale comigo
         </a>

@@ -28,6 +28,7 @@ export default function HeroStudio() {
 
   return (
     <div
+      className="hero-studio-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '55% 45%',
@@ -141,7 +142,7 @@ export default function HeroStudio() {
 
       {/* Right column — photo */}
       <div
-        className="reveal"
+        className="reveal hero-studio-right"
         style={{
           position: 'relative',
           overflow: 'hidden',

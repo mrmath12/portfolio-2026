@@ -5,6 +5,7 @@ import { SKILLS_DATA, CREATIVE_CATEGORIES } from '@/data/skills';
 export default function Skills() {
   return (
     <div
+      className="skills-grid"
       style={{
         maxWidth: '1400px',
         margin: '0 auto',
