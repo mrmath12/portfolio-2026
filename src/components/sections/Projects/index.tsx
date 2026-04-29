@@ -25,6 +25,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
 
   const header = (
     <div
+      className="reveal"
       style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -70,8 +71,10 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
             gap: 18,
           }}
         >
-          {filtered.map((p) => (
-            <ProjectCard key={p.id} project={p} onClick={() => onProjectClick(p.id)} />
+          {filtered.map((p, index) => (
+            <div key={p.id} className="reveal" style={{ transitionDelay: `${index * 40}ms` }}>
+              <ProjectCard project={p} onClick={() => onProjectClick(p.id)} />
+            </div>
           ))}
         </div>
       </div>
@@ -89,7 +92,9 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
       <div>
         {header}
         {featured && (
-          <ProjectFeatured project={featured} onClick={() => onProjectClick(featured.id)} />
+          <div className="reveal">
+            <ProjectFeatured project={featured} onClick={() => onProjectClick(featured.id)} />
+          </div>
         )}
         <div
           style={{
@@ -98,8 +103,10 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
             gap: 18,
           }}
         >
-          {remaining.map((p) => (
-            <ProjectCard key={p.id} project={p} onClick={() => onProjectClick(p.id)} />
+          {remaining.map((p, index) => (
+            <div key={p.id} className="reveal" style={{ transitionDelay: `${index * 40}ms` }}>
+              <ProjectCard project={p} onClick={() => onProjectClick(p.id)} />
+            </div>
           ))}
         </div>
       </div>
@@ -112,12 +119,9 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
       {header}
       <div>
         {filtered.map((p, i) => (
-          <ProjectRow
-            key={p.id}
-            project={p}
-            index={i}
-            onClick={() => onProjectClick(p.id)}
-          />
+          <div key={p.id} className="reveal" style={{ transitionDelay: `${i * 40}ms` }}>
+            <ProjectRow project={p} index={i} onClick={() => onProjectClick(p.id)} />
+          </div>
         ))}
       </div>
     </div>

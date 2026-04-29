@@ -38,7 +38,7 @@ export default function HeroStudio() {
     >
       {/* Left column */}
       <div
-        className="reveal visible"
+        className="reveal"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -141,7 +141,7 @@ export default function HeroStudio() {
 
       {/* Right column — photo */}
       <div
-        className="reveal visible"
+        className="reveal"
         style={{
           position: 'relative',
           overflow: 'hidden',

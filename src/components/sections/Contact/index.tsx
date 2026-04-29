@@ -21,7 +21,7 @@ export default function Contact() {
       }}
     >
       {/* Left column */}
-      <div>
+      <div className="reveal">
         <SectionLabel variant="accent">Contato</SectionLabel>
 
         <h2
@@ -67,7 +67,9 @@ export default function Contact() {
       </div>
 
       {/* Right column */}
-      <ContactForm />
+      <div className="reveal" style={{ transitionDelay: '120ms' }}>
+        <ContactForm />
+      </div>
     </div>
   );
 }
