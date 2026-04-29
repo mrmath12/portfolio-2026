@@ -68,3 +68,6 @@ section { scroll-margin-top: 62px; }
 }
 
 .contact-field::placeholder { color: #3a5c4e; }
+
+.modal-box::-webkit-scrollbar { width: 3px; }
+.modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }

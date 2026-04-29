@@ -9,13 +9,13 @@ import Projects from '@/components/sections/Projects';
 import Skills from '@/components/sections/Skills';
 import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
+import Modal from '@/components/Modal';
 
 export default function Home() {
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
 
   const handleProjectClick = (id: number) => {
     setSelectedProjectId(id);
-    console.log('Project clicked:', id);
   };
 
   return (
@@ -40,6 +40,7 @@ export default function Home() {
         <Contact />
       </section>
       <Footer />
+      <Modal projectId={selectedProjectId} onClose={() => setSelectedProjectId(null)} />
     </>
   );
 }
