@@ -7,7 +7,7 @@ export const PROJECTS: Project[] = [
     cat: 'Desenvolvimento Web',
     year: '2024',
     desc: 'Plataforma full-stack para agendamento de atendimento em unidades do CRAS de Campos/RJ. Serviço já conta com +60 mil usuários cadastrados.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL'],
+    tags: ['Next.JS', 'TypeScript', 'Node.js', 'PostgreSQL', 'Dbeaver'],
     bg: '#14211c',
     icon: '◈',
     image: '/projects/agendamento.png',
@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
     cat: 'Desenvolvimento Web',
     year: '2025',
     desc: 'Plataforma de avaliação de filmes, onde o usuário consegue avaliar filmes (usando mais de um critério), ver avaliações de outros usuários, alem de ter acesso à informações/detalhes sobre os filmes, atores e diretores.',
-    tags: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Supabase', 'API', 'Branding', 'Naming'],
+    tags: ['Next.JS', 'TypeScript', 'Node.js', 'PostgreSQL', 'Supabase', 'API', 'Branding', 'Naming', 'Illustrator'],
     bg: '#1a1626',
     icon: '▷',
     image: '/projects/cinenotes.png',
@@ -39,13 +39,15 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 4,
-    title: 'Live Visuals — VJ Set',
-    cat: 'VJ / Motion',
-    year: '2024',
-    desc: 'Criação de visuais generativos para performance ao vivo. Resolume Arena, shaders GLSL e sincronização via MIDI.',
-    tags: ['Resolume', 'GLSL', 'MIDI'],
+    title: 'Daychain - Construa seu protocolo diário.',
+    cat: 'Desenvolvimento Web',
+    year: '2026',
+    desc: 'Serviço focado em ajudar pessoas a construir hábitos saudáveis. SEja para aumentar sua produtividade, bem-estar, saúde... ',
+    tags: ['Next.JS', 'Supabe', 'SQL'],
     bg: '#1a1d2b',
     icon: '⬡',
+    image: '/projects/daychain.png'
+
   },
   // {
   //   id: 5,

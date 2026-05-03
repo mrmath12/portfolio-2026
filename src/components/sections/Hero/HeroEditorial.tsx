@@ -110,15 +110,6 @@ export default function HeroEditorial() {
             </Tag>
           ))}
         </div>
-
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <Button variant="primary" href="#projetos">
-            Ver Projetos
-          </Button>
-          <Button variant="ghost" href="#sobre">
-            Sobre mim
-          </Button>
-        </div>
       </div>
 
       {/* Right column */}
@@ -134,7 +125,8 @@ export default function HeroEditorial() {
             aspectRatio: '3 / 4',
           }}
         >
-          <Placeholder />
+          {/* <Placeholder /> */}
+          <img className='object-cover h-full' src="/photo-01.jpg" alt="Matheus" />
         </div>
 
         {/* Badge bottom-left */}

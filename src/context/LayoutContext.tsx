@@ -1,15 +1,13 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import type { FocusMode, LayoutVariant } from '@/types';
+import type { FocusMode  } from '@/types';
 
 interface LayoutContextValue {
-  layout: LayoutVariant;
   focus: FocusMode;
   revealEnabled: boolean;
   activeFilter: string;
   featuredIdOverride: number | null;
-  setLayout: (v: LayoutVariant) => void;
   setFocus: (v: FocusMode) => void;
   setRevealEnabled: (v: boolean) => void;
   setActiveFilter: (v: string) => void;
@@ -19,7 +17,6 @@ interface LayoutContextValue {
 const LayoutContext = createContext<LayoutContextValue | null>(null);
 
 export function LayoutProvider({ children }: { children: React.ReactNode }) {
-  const [layout, setLayout] = useState<LayoutVariant>('v-studio');
   const [focus, setFocusState] = useState<FocusMode>('dev');
   const [revealEnabled, setRevealEnabledState] = useState(true);
   const [activeFilter, setActiveFilterState] = useState('Todos');
@@ -62,12 +59,10 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
   return (
     <LayoutContext.Provider
       value={{
-        layout,
         focus,
         revealEnabled,
         activeFilter,
         featuredIdOverride,
-        setLayout,
         setFocus,
         setRevealEnabled,
         setActiveFilter,

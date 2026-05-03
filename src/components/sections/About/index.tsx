@@ -1,16 +1,13 @@
 'use client';
 
-import { useLayout } from '@/context/LayoutContext';
 import AboutStudio from './AboutStudio';
-import AboutDefault from './AboutDefault';
 
-export default function About() {
-  const { layout } = useLayout();
+export default function  About() {
 
   return (
     <section id="sobre" style={{ padding: '100px 40px' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        {layout === 'v-studio' ? <AboutStudio /> : <AboutDefault />}
+        <AboutStudio /> 
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ type FilterBarProps = {
 
 export default function FilterBar({ filters, activeFilter, onFilterChange }: FilterBarProps) {
   return (
-    <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap', marginTop: 'auto' }}>
       {filters.map((f) => (
         <FilterButton key={f} active={activeFilter === f} onClick={() => onFilterChange(f)}>
           {f}

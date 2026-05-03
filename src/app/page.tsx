@@ -13,12 +13,11 @@ import About from '@/components/sections/About';
 import Contact from '@/components/sections/Contact';
 import Modal from '@/components/Modal';
 import Marquee from '@/components/Marquee';
-import TweaksPanel from '@/components/TweaksPanel';
 
 export default function Home() {
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
-  const { layout, activeFilter } = useLayout();
-  useScrollReveal([layout, activeFilter]);
+  const { activeFilter } = useLayout();
+  useScrollReveal([activeFilter]);
 
   const handleProjectClick = (id: number) => {
     setSelectedProjectId(id);
@@ -30,19 +29,17 @@ export default function Home() {
       <section id="hero">
         <Hero />
       </section>
-      {layout === 'v-studio' && (
-        <div
-          style={{
-            borderTop: '1px solid var(--border-soft)',
-            borderBottom: '1px solid var(--border-soft)',
-            background: 'var(--bg2)',
-            padding: '18px 0',
-          }}
-        >
-          <Marquee />
-        </div>
-      )}
-      <SectionDivider id="div1" />
+      <div
+        style={{
+          borderTop: '1px solid var(--border-soft)',
+          borderBottom: '1px solid var(--border-soft)',
+          background: 'var(--bg2)',
+          padding: '18px 0',
+        }}
+      >
+        <Marquee />
+      </div>
+      {/* <SectionDivider id="div1" /> */}
       <section id="projetos" style={{ padding: '100px 40px' }}>
         <Projects onProjectClick={handleProjectClick} />
       </section>
@@ -58,7 +55,6 @@ export default function Home() {
       </section>
       <Footer />
       <Modal projectId={selectedProjectId} onClose={() => setSelectedProjectId(null)} />
-      <TweaksPanel />
     </>
   );
 }

@@ -3,9 +3,9 @@ import { PROJECTS } from '@/data/projects';
 
 export const SKILLS_DATA: SkillsData = {
   'Front-end': ['React', 'Next.js', 'TypeScript', 'HTML/CSS', 'Tailwind', 'Figma'],
-  'Back-end & Infra': ['Node.js', 'Express', 'PostgreSQL', 'REST APIs', 'Docker', 'Git & CI/CD'],
-  'Mobile': ['React Native', 'Firebase', 'Expo'],
-  'Diferenciais criativos': ['Design Gráfico', 'Identidade Visual', 'Ableton Live', 'VJ (Resolume)'],
+  'Back-end & Infra': ['Node.js', 'PostgreSQL', 'REST APIs', 'Supabase', 'Vercel'],
+  'Mobile': ['React Native', 'Expo'],
+  'Diferenciais criativos': ['Design Gráfico', 'Identidade Visual', 'Branding'],
 };
 
 export const CREATIVE_CATEGORIES: string[] = ['Diferenciais criativos'];

@@ -19,7 +19,7 @@ export default function SectionLabel({ variant = 'default', children }: SectionL
         letterSpacing: '0.16em',
         textTransform: 'uppercase',
         color: variantColor[variant],
-        marginBottom: '10px',
+        marginBottom: '6px',
       }}
     >
       {children}
