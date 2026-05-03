@@ -18,9 +18,9 @@ export const MARQUEE_ITEMS: string[] = [
   'Estudante de ADS',
   'Código limpo',
   'Interfaces que funcionam',
-  'Design Gráfico',
+  'Designer Gráfico',
   'DJ & VJ',
-  'Produção Musical',
+  'Produtor Musical',
   'Perfeccionista',
-  'Muito Curioso',
+  'Curioso',
 ];

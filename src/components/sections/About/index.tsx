@@ -8,15 +8,10 @@ export default function About() {
   const { layout } = useLayout();
 
   return (
-    <section
-      id="sobre"
-      style={{
-        padding: '100px 40px',
-        maxWidth: '1400px',
-        margin: '0 auto',
-      }}
-    >
-      {layout === 'v-studio' ? <AboutStudio /> : <AboutDefault />}
+    <section id="sobre" style={{ padding: '100px 40px' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+        {layout === 'v-studio' ? <AboutStudio /> : <AboutDefault />}
+      </div>
     </section>
   );
 }

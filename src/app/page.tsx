@@ -53,7 +53,7 @@ export default function Home() {
       <SectionDivider id="div3" />
       <About />
       <SectionDivider id="div4" />
-      <section id="contato">
+      <section id="contato" style={{ padding: '100px 40px' }}>
         <Contact />
       </section>
       <Footer />

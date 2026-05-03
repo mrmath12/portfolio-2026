@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { useLayout } from '@/context/LayoutContext';
 import { PROJECTS } from '@/data/projects';
 import { PROJECT_FILTERS } from '@/data/skills';
@@ -22,6 +23,32 @@ type ProjectsProps = {
 export default function Projects({ onProjectClick }: ProjectsProps) {
   const { layout, activeFilter, featuredIdOverride, setActiveFilter } = useLayout();
   const filtered = filterProjects(PROJECTS, activeFilter);
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [seenIds, setSeenIds] = useState<Set<number>>(() => {
+    const first = filterProjects(PROJECTS, activeFilter)[0];
+    return first ? new Set([first.id]) : new Set();
+  });
+  const filteredRef = useRef(filtered);
+  filteredRef.current = filtered;
+
+  useEffect(() => {
+    const first = filtered[0];
+    setFeaturedIndex(0);
+    setSeenIds(first ? new Set([first.id]) : new Set());
+  }, [activeFilter]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (layout !== 'v-studio' || featuredIdOverride != null) return;
+    const interval = setInterval(() => {
+      setFeaturedIndex(i => {
+        const current = filteredRef.current;
+        const currentId = current[i % current.length]?.id;
+        if (currentId != null) setSeenIds(prev => new Set([...prev, currentId]));
+        return (i + 1) % current.length;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [layout, featuredIdOverride]);
 
   const header = (
     <div
@@ -62,7 +89,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
 
   if (layout === 'v-editorial') {
     return (
-      <div>
+      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         {header}
         <div
           style={{
@@ -83,13 +110,12 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
 
   if (layout === 'v-studio') {
     const featured =
-      filtered.find((p) => p.id === (featuredIdOverride ?? 1)) ??
-      filtered.find((p) => p.featured) ??
-      filtered[0];
+      (featuredIdOverride != null ? filtered.find((p) => p.id === featuredIdOverride) : null) ??
+      filtered[featuredIndex % filtered.length];
     const remaining = filtered.filter((p) => p.id !== featured?.id);
 
     return (
-      <div>
+      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         {header}
         {featured && (
           <div className="reveal">
@@ -104,7 +130,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
           }}
         >
           {remaining.map((p, index) => (
-            <div key={p.id} className="reveal" style={{ transitionDelay: `${index * 40}ms` }}>
+            <div key={p.id} className={seenIds.has(p.id) ? 'reveal visible' : 'reveal'} style={{ transitionDelay: `${index * 40}ms` }}>
               <ProjectCard project={p} onClick={() => onProjectClick(p.id)} />
             </div>
           ))}
@@ -115,7 +141,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
 
   // v-minimal
   return (
-    <div>
+    <div style={{ maxWidth: 1400, margin: '0 auto' }}>
       {header}
       <div>
         {filtered.map((p, i) => (

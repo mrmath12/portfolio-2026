@@ -142,7 +142,8 @@ export default function Modal({ projectId, onClose }: ModalProps) {
             whiteSpace: 'pre-line',
           }}
         >
-          {project.desc}{'\n\n'}Este projeto demonstra minha capacidade de trabalhar em múltiplas disciplinas — tecnologia, design e expressão criativa — com o mesmo nível de comprometimento e atenção ao detalhe.
+          {project.desc}{'\n\n'}
+          <a className='transition-transform hover:scale-101 inline-block' href={project.url} target='blank'>{project.url ? '| ACESSAR PROJETO |' : 'EM BREVE'}</a>
         </p>
 
         {/* 6. Tags */}

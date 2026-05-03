@@ -16,23 +16,20 @@ export default function ProjectFeatured({ project: p, onClick }: ProjectFeatured
       style={{
         display: 'grid',
         gridTemplateColumns: '1.4fr 1fr',
-        border: '1px solid var(--border)',
         borderRadius: 16,
         overflow: 'hidden',
         marginBottom: 20,
         cursor: 'pointer',
-        transition: 'border-color 250ms ease, box-shadow 300ms ease',
+        transition: 'box-shadow 300ms ease',
       }}
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = 'rgba(117,176,156,0.25)';
         el.style.boxShadow = '0 16px 48px rgba(0,0,0,0.5)';
         const inner = el.querySelector<HTMLElement>('.feat-img-inner');
         if (inner) inner.style.transform = 'scale(1.04)';
       }}
       onMouseLeave={(e) => {
         const el = e.currentTarget as HTMLElement;
-        el.style.borderColor = '';
         el.style.boxShadow = '';
         const inner = el.querySelector<HTMLElement>('.feat-img-inner');
         if (inner) inner.style.transform = '';

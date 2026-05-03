@@ -1,4 +1,5 @@
 import type { SkillsData } from '@/types';
+import { PROJECTS } from '@/data/projects';
 
 export const SKILLS_DATA: SkillsData = {
   'Front-end': ['React', 'Next.js', 'TypeScript', 'HTML/CSS', 'Tailwind', 'Figma'],
@@ -11,9 +12,5 @@ export const CREATIVE_CATEGORIES: string[] = ['Diferenciais criativos'];
 
 export const PROJECT_FILTERS: string[] = [
   'Todos',
-  'Desenvolvimento Web',
-  'Desenvolvimento Mobile',
-  'Design Gráfico',
-  'VJ / Motion',
-  'Produção Musical',
+  ...Array.from(new Set(PROJECTS.map(p => p.cat))),
 ];

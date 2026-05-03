@@ -2,7 +2,7 @@ import SectionLabel from '@/components/ui/SectionLabel';
 import ContactForm from './ContactForm';
 
 const INFO_ITEMS = [
-  { key: 'Email', value: 'oi@matheus.dev', highlight: false },
+  { key: 'Email', value: 'matheus_psilveira@hotmail.com', highlight: false },
   { key: 'Tipo de projeto', value: 'Web App · Mobile · Front-end · Back-end', highlight: false },
   { key: 'Disponibilidade', value: 'Disponível agora', highlight: true },
 ];
@@ -15,7 +15,6 @@ export default function Contact() {
         display: 'grid',
         gridTemplateColumns: '1fr 1.2fr',
         gap: '80px',
-        padding: '100px 40px',
         maxWidth: '1400px',
         margin: '0 auto',
         alignItems: 'start',

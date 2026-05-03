@@ -13,6 +13,7 @@ export interface Project {
   icon?: string;
   image?: string;
   featured?: boolean;
+  url?: string;
 }
 
 export type SkillsData = Record<string, string[]>;
