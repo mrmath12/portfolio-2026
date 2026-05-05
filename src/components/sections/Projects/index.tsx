@@ -37,6 +37,19 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
     setFeaturedIndex(0);
     setSeenIds(first ? new Set([first.id]) : new Set());
   }, [activeFilter]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (featuredIdOverride != null) return;
+    const id = setInterval(() => {
+      setFeaturedIndex((prev) => {
+        const next = (prev + 1) % filteredRef.current.length;
+        const nextProject = filteredRef.current[next];
+        if (nextProject) setSeenIds((s) => new Set([...s, nextProject.id]));
+        return next;
+      });
+    }, 5000);
+    return () => clearInterval(id);
+  }, [featuredIdOverride]);
   
   const header = (
     <div
