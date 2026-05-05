@@ -98,4 +98,10 @@ section { scroll-margin-top: 62px; }
   }
 
   .about-studio-stats { grid-template-columns: repeat(2, 1fr) !important; }
+
+  .project-featured-grid { grid-template-columns: 1fr !important; }
+
+  .hero-editorial-right { overflow: hidden; }
+
+  .contact-form-inline-grid { grid-template-columns: 1fr !important; }
 }

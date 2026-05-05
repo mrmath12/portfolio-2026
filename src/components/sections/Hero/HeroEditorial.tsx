@@ -2,7 +2,6 @@
 
 import { useLayout } from '@/context/LayoutContext';
 import { ROLES_DEV, ROLES_CREATIVE } from '@/data/content';
-import Button from '@/components/ui/Button';
 import Tag from '@/components/ui/Tag';
 
 const Placeholder = () => (
@@ -114,7 +113,7 @@ export default function HeroEditorial() {
 
       {/* Right column */}
       <div
-        className="reveal"
+        className="reveal hero-editorial-right"
         style={{ position: 'relative', transitionDelay: '150ms' }}
       >
         <div

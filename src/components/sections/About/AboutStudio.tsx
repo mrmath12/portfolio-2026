@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import SectionLabel from '@/components/ui/SectionLabel';
 import StatCard from '@/components/ui/StatCard';
 
@@ -60,34 +59,6 @@ export default function AboutStudio() {
         <StatCard variant="default" num="BR" label="Brasil" />
       </div>
 
-      <div
-        className="reveal"
-        style={{
-          maxWidth: '480px',
-          margin: '48px auto 0',
-          borderRadius: '16px',
-          overflow: 'hidden',
-          border: '1px solid var(--border)',
-          aspectRatio: '4/3',
-          position: 'relative',
-          transitionDelay: '240ms',
-        }}
-      >
-        <Image
-          src="/photo-01.jpg"
-          alt="Matheus"
-          fill
-          style={{ objectFit: 'cover', objectPosition: 'top' }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(to top, rgba(16,27,23,0.6) 0%, transparent 50%)',
-            pointerEvents: 'none',
-          }}
-        />
-      </div>
     </div>
   );
 }

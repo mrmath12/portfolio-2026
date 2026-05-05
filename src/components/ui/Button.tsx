@@ -5,6 +5,7 @@ type ButtonVariant = 'primary' | 'ghost';
 type ButtonProps = {
   variant: ButtonVariant;
   href?: string;
+  target?: string;
   children: React.ReactNode;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -43,6 +44,7 @@ const variantStyle: Record<ButtonVariant, React.CSSProperties> = {
 export default function Button({
   variant,
   href,
+  target,
   children,
   className = '',
   type = 'button',
@@ -54,6 +56,8 @@ export default function Button({
     return (
       <a
         href={href}
+        target={target}
+        rel={target === '_blank' ? 'noopener noreferrer' : undefined}
         style={style}
         className={className}
         onMouseEnter={(e) => {

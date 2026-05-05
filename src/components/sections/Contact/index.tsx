@@ -1,10 +1,14 @@
+'use client';
+
 import SectionLabel from '@/components/ui/SectionLabel';
 import ContactForm from './ContactForm';
 
 const INFO_ITEMS = [
-  { key: 'Email', value: 'matheus_psilveira@hotmail.com', highlight: false },
-  { key: 'Tipo de projeto', value: 'Web App · Mobile · Front-end · Back-end', highlight: false },
-  { key: 'Disponibilidade', value: 'Disponível agora', highlight: true },
+  { key: 'Email', value: 'matheus_psilveira@hotmail.com', href: 'mailto:matheus_psilveira@hotmail.com', highlight: false },
+  { key: 'GitHub', value: 'github.com/mrmath12', href: 'https://github.com/mrmath12', highlight: false },
+  { key: 'LinkedIn', value: 'linkedin.com/in/matheus-carvalho-465a00288', href: 'https://linkedin.com/in/matheus-carvalho-465a00288/', highlight: false },
+  { key: 'Tipo de projeto', value: 'Web App · Mobile · Front-end · Back-end', href: null, highlight: false },
+  { key: 'Disponibilidade', value: 'Disponível agora', href: null, highlight: true },
 ];
 
 export default function Contact() {
@@ -44,7 +48,7 @@ export default function Contact() {
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {INFO_ITEMS.map(({ key, value, highlight }) => (
+          {INFO_ITEMS.map(({ key, value, href, highlight }) => (
             <div key={key}>
               <div
                 style={{
@@ -58,9 +62,27 @@ export default function Contact() {
               >
                 {key}
               </div>
-              <div style={{ fontSize: '15px', color: highlight ? 'var(--brand)' : 'var(--fg2)' }}>
-                {value}
-              </div>
+              {href ? (
+                <a
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: '15px',
+                    color: highlight ? 'var(--brand)' : 'var(--fg2)',
+                    textDecoration: 'none',
+                    transition: 'color 150ms ease',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--brand)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = highlight ? 'var(--brand)' : 'var(--fg2)'; }}
+                >
+                  {value}
+                </a>
+              ) : (
+                <div style={{ fontSize: '15px', color: highlight ? 'var(--brand)' : 'var(--fg2)' }}>
+                  {value}
+                </div>
+              )}
             </div>
           ))}
         </div>

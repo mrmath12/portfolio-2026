@@ -13,6 +13,7 @@ export default function ProjectFeatured({ project: p, onClick }: ProjectFeatured
   return (
     <div
       onClick={onClick}
+      className="project-featured-grid"
       style={{
         display: 'grid',
         gridTemplateColumns: '1.4fr 1fr',

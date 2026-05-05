@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { PROJECTS } from '@/data/projects';
 import Tag from '@/components/ui/Tag';
+import Button from '@/components/ui/Button';
 
 type ModalProps = {
   projectId: number | null;
@@ -142,18 +143,26 @@ export default function Modal({ projectId, onClose }: ModalProps) {
             whiteSpace: 'pre-line',
           }}
         >
-          {project.desc}{'\n\n'}
-          <a className='transition-transform hover:scale-101 inline-block' href={project.url} target='blank'>{project.url ? '| ACESSAR PROJETO |' : 'EM BREVE'}</a>
+          {project.desc}
         </p>
 
         {/* 6. Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
           {project.tags.map((tag, i) => (
             <Tag key={tag} variant={i === 0 ? 'brand' : 'default'}>
               {tag}
             </Tag>
           ))}
         </div>
+
+        {/* 7. CTA */}
+        {project.url ? (
+          <Button variant="primary" href={project.url} target="_blank">
+            Acessar projeto →
+          </Button>
+        ) : (
+          <span style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: 500 }}>Em breve</span>
+        )}
       </div>
     </div>
   );
