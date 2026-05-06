@@ -51,6 +51,7 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 section { scroll-margin-top: 62px; }
+@media (max-width: 768px) { section { scroll-margin-top: 0; } }
 
 .reveal {
   opacity: 0;
@@ -73,7 +74,9 @@ section { scroll-margin-top: 62px; }
 .modal-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 @media (max-width: 768px) {
-  .nav-links, .nav-cta { display: none !important; }
+  /* nav-links e nav-cta agora controlados por classes Tailwind responsive (hidden md:flex) */
+
+  body { padding-bottom: 64px; }
 
   #projetos, #skills, #sobre, #contato { padding: 60px 20px !important; }
 

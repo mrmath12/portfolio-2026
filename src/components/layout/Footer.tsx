@@ -12,14 +12,12 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="w-full border-t border-[var(--border-soft)]">
-      <div className="justify-self-center w-full max-w-[1400px] h-10 flex items-center justify-between px-10 py-[22px]">
+      <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
 
-        {/* Copyright — texto de rodapé discreto */}
         <p className="text-4 text-[var(--muted)] opacity-50">
           © 2026 Matheus. Todos os direitos reservados.
         </p>
 
-        {/* Links sociais — gerados dinamicamente a partir de socialLinks */}
         <div className="flex gap-5">
           {socialLinks.map(({ name, href }) => (
             <a

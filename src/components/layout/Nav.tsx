@@ -1,123 +1,201 @@
 'use client';
 
-// ─── SEÇÃO: Imports ────────────────────────────────────────────────────────────
-// Hooks do React necessários para estado reativo e efeitos colaterais
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-// ─── SEÇÃO: Constants ──────────────────────────────────────────────────────────
-// IDs das seções da página usados tanto para observação quanto para tipagem
+// ─── Constants ────────────────────────────────────────────────────────────────
+
 const SECTION_IDS = ['projetos', 'skills', 'sobre', 'contato'] as const;
+type SectionId = (typeof SECTION_IDS)[number];
 
-// Percentual mínimo de visibilidade de uma seção para ela ser considerada "ativa"
-// Valor de 35% evita trocas de estado prematuras ao scrollar entre seções
-const SECTION_VISIBILITY_THRESHOLD = 0.35;
-
-// Definição dos links de navegação com label exibido e ID da seção correspondente
+// Desktop links — Contato removido; o CTA é o único ponto de entrada para contato
 const NAV_LINKS = [
   { label: 'Projetos',    sectionId: 'projetos' },
   { label: 'Habilidades', sectionId: 'skills'   },
   { label: 'Sobre',       sectionId: 'sobre'    },
-  { label: 'Contato',     sectionId: 'contato'  },
 ] as const;
 
-// ─── SEÇÃO: Types ──────────────────────────────────────────────────────────────
-// Tipo derivado do array de IDs para garantir consistência sem duplicação
-type SectionId = (typeof SECTION_IDS)[number];
+// Bottom tab bar mobile — todas as quatro seções
+const TAB_ITEMS = [
+  { label: 'Projetos', sectionId: 'projetos' },
+  { label: 'Skills',   sectionId: 'skills'   },
+  { label: 'Sobre',    sectionId: 'sobre'    },
+  { label: 'Contato',  sectionId: 'contato'  },
+] as const;
 
-// ─── SEÇÃO: Hook — Active Section Tracker ─────────────────────────────────────
-// Rastreia qual seção da página está atualmente visível na viewport do usuário
-// usando a IntersectionObserver API para máxima performance (sem scroll events)
+const SECTION_VISIBILITY_THRESHOLD = 0.35;
+
+// ─── Hook — Active Section Tracker ───────────────────────────────────────────
+
 function useActiveSectionTracker(): SectionId | '' {
-  const [activeSectionId, setActiveSectionId] = useState<SectionId | ''>('');
+  // Inicializa em 'projetos' para que o primeiro link já apareça ativo no load
+  const [activeSectionId, setActiveSectionId] = useState<SectionId | ''>('projetos');
 
   useEffect(() => {
-    // Marca a seção como ativa assim que ela atinge o threshold de visibilidade
     function handleIntersection(entries: IntersectionObserverEntry[]): void {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSectionId(entry.target.id as SectionId);
-        }
-      });
+      const intersecting = entries.filter((e) => e.isIntersecting);
+      if (intersecting.length === 0) return;
+      // Escolhe a seção com maior área visível no batch — evita misfires em scroll rápido
+      const best = intersecting.reduce((a, b) =>
+        b.intersectionRatio > a.intersectionRatio ? b : a
+      );
+      setActiveSectionId(best.target.id as SectionId);
     }
 
     const observer = new IntersectionObserver(handleIntersection, {
       threshold: SECTION_VISIBILITY_THRESHOLD,
+      // Desconta a altura da nav fixa para seções curtas não perderem o threshold
+      rootMargin: '-56px 0px 0px 0px',
     });
 
-    // Registra o observer apenas nas seções que existem no DOM no momento da montagem
     SECTION_IDS.forEach((id) => {
-      const sectionElement = document.getElementById(id);
-      if (sectionElement) observer.observe(sectionElement);
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
     });
 
-    // Cleanup: desconecta todos os observers ao desmontar o componente
     return () => observer.disconnect();
   }, []);
 
   return activeSectionId;
 }
 
-// ─── SEÇÃO: Helper — Class Builder ────────────────────────────────────────────
-// Gera a string de classes CSS de um link de navegação com base no seu estado ativo
+// ─── Helper — Nav Link Classes ────────────────────────────────────────────────
+
 function buildNavLinkClassName(isActive: boolean): string {
-  const baseClasses = [
+  const base = [
     'text-6 font-medium no-underline tracking-[0.04em]',
-    'px-[18px] py-[18px] transition-colors duration-200',
+    'px-[18px] py-[18px] transition-colors duration-150',
     'hover:text-[var(--fg1)]',
   ];
-
-  // Aplica a cor de destaque da marca ao link ativo; cor atenuada para os demais
-  const stateClass = isActive
-    ? 'text-[var(--brand)]'
-    : 'text-[var(--muted)]';
-
-  return [...baseClasses, stateClass].join(' ');
+  return [...base, isActive ? 'text-[var(--brand)]' : 'text-[var(--muted)]'].join(' ');
 }
 
-// ─── SEÇÃO: Component — Nav ───────────────────────────────────────────────────
-// Barra de navegação fixa no topo com rastreamento automático da seção visível
+// ─── Icons — Mobile Tab Bar ───────────────────────────────────────────────────
+
+function IconProjetos() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+      <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+    </svg>
+  );
+}
+
+function IconSkills() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  );
+}
+
+function IconSobre() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6"/>
+    </svg>
+  );
+}
+
+function IconContato() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="m22 7-10 7L2 7"/>
+    </svg>
+  );
+}
+
+const TAB_ICONS: Record<string, React.ComponentType> = {
+  projetos: IconProjetos,
+  skills:   IconSkills,
+  sobre:    IconSobre,
+  contato:  IconContato,
+};
+
+// ─── Component — Mobile Tab Bar ───────────────────────────────────────────────
+
+function MobileTabBar({ activeSectionId }: { activeSectionId: SectionId | '' }) {
+  return (
+    <nav
+      aria-label="Navegação móvel"
+      className="fixed bottom-0 left-0 right-0 z-[200] flex md:hidden border-t border-[var(--border)]"
+      style={{ background: 'rgba(16,27,23,0.96)' }}
+    >
+      {TAB_ITEMS.map(({ label, sectionId }) => {
+        const isActive = activeSectionId === sectionId;
+        const Icon = TAB_ICONS[sectionId];
+        return (
+          <a
+            key={sectionId}
+            href={`#${sectionId}`}
+            aria-current={isActive ? 'true' : undefined}
+            className={[
+              'flex flex-1 flex-col items-center justify-center gap-1.5 no-underline transition-colors duration-150',
+              isActive ? 'text-[var(--brand)]' : 'text-[var(--muted)]',
+            ].join(' ')}
+            style={{ padding: '12px 0', paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
+          >
+            <Icon />
+            <span className="text-[10px] font-medium tracking-[0.04em] uppercase">{label}</span>
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+
+// ─── Component — Nav ──────────────────────────────────────────────────────────
+
 export default function Nav() {
   const activeSectionId = useActiveSectionTracker();
 
   return (
-    <nav
-      className="fixed flex h-14 justify-center top-0 left-0 right-0 z-[200] backdrop-blur-[16px] border-b border-[rgba(42,60,53,0.5)]"
-      style={{ background: 'rgba(16,27,23,0.88)' }}
-    >
-      {/* Layout em três colunas: logo | links centralizados | CTA */}
-      <div className="grid grid-cols-[auto_1fr_auto] items-center justify-self-center w-full max-w-[1400px]">
+    <>
+      <nav
+        aria-label="Navegação principal"
+        className="fixed hidden md:flex h-14 justify-center top-0 left-0 right-0 z-[200] backdrop-blur-[16px] border-b border-[var(--border)]"
+        style={{ background: 'rgba(16,27,23,0.88)' }}
+      >
+        <div className="grid grid-cols-[auto_1fr_auto] items-center w-full max-w-[1400px]">
 
-        {/* Logo — ancora para o topo da página */}
-        <a
-          href="#hero"
-          className="text-7 font-bold text-[var(--fg1)] tracking-[-0.03em] no-underline px-10 py-[18px]"
-        >
-          M<span className="text-[var(--brand)]">.</span>
-        </a>
+          {/* Logo — ancora para o topo da página */}
+          <a
+            href="#hero"
+            aria-label="Matheus — voltar ao início"
+            className="text-7 font-bold text-[var(--fg1)] tracking-[-0.03em] no-underline px-10 py-[18px]"
+          >
+            M<span className="text-[var(--brand)]">.</span>
+          </a>
 
-        {/* Links de navegação — gerados dinamicamente a partir de NAV_LINKS */}
-        <div className="flex stick justify-center nav-links gap-4">
-          {NAV_LINKS.map(({ label, sectionId }) => (
-            <a
-              key={sectionId}
-              href={`#${sectionId}`}
-              data-section={sectionId}
-              className={buildNavLinkClassName(activeSectionId === sectionId)}
-            >
-              {label}
-            </a>
-          ))}
+          {/* Links de navegação — visíveis apenas no desktop */}
+          <div className="hidden md:flex justify-center gap-4">
+            {NAV_LINKS.map(({ label, sectionId }) => (
+              <a
+                key={sectionId}
+                href={`#${sectionId}`}
+                data-section={sectionId}
+                aria-current={activeSectionId === sectionId ? 'true' : undefined}
+                className={buildNavLinkClassName(activeSectionId === sectionId)}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+
+          {/* CTA — único ponto de entrada para contato no desktop */}
+          <a
+            href="#contato"
+            className="hidden md:flex items-center self-stretch border-l border-[var(--border-soft)] px-10 text-6 font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-150 text-[var(--brand)] hover:text-[var(--brand-lt)]"
+          >
+            Fale comigo
+          </a>
+
         </div>
+      </nav>
 
-        {/* CTA — ação primária da nav, separada visualmente por borda lateral */}
-        <a
-          href="#contato"
-          className="nav-cta border-l border-[rgba(42,60,53,0.5)] text-[var(--brand)] px-10 py-[18px] text-6 font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-200 hover:text-[var(--brand-lt)]"
-        >
-          Fale comigo
-        </a>
-
-      </div>
-    </nav>
+      {/* Bottom tab bar — navegação mobile */}
+      <MobileTabBar activeSectionId={activeSectionId} />
+    </>
   );
 }
