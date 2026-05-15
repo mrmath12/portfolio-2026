@@ -1,11 +1,17 @@
+'use client';
+
+import { useTranslation } from '@/hooks/useTranslation';
 import SectionLabel from '@/components/ui/SectionLabel';
 import StatCard from '@/components/ui/StatCard';
 
 export default function AboutStudio() {
+  const { t } = useTranslation();
+  const a = t.about;
+
   return (
     <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
       <div className="reveal">
-        <SectionLabel variant="accent">Sobre</SectionLabel>
+        <SectionLabel variant="accent">{a.sectionLabel}</SectionLabel>
       </div>
 
       <h2
@@ -19,44 +25,41 @@ export default function AboutStudio() {
           transitionDelay: '60ms',
         }}
       >
-        Fullstack dev
+        {a.headline1}
         <br />
-        com olho em
+        {a.headline2}
         <br />
-        <em style={{ fontStyle: 'normal', color: 'var(--brand)' }}>produto.</em>
+        <em style={{ fontStyle: 'normal', color: 'var(--brand)' }}>{a.headline3}</em>
       </h2>
 
       <p
         className="reveal"
         style={{ fontSize: '17px', color: 'var(--muted)', lineHeight: 1.7, marginBottom: '14px', transitionDelay: '120ms' }}
       >
-        Sou Matheus, desenvolvedor Fullstack e estudante de Análise e Desenvolvimento de Sistemas.
-        Construo aplicações web e mobile com foco em qualidade de código, performance e experiência do usuário.
+        {a.bio1}
       </p>
       <p
         className="reveal"
         style={{ fontSize: '17px', color: 'var(--muted)', lineHeight: 1.7, transitionDelay: '160ms' }}
       >
-        O que me diferencia: um background em design gráfico, produção musical e artes visuais que me dá uma leitura
-        de produto fora do comum. Entendo de interface porque faço arte. Entendo de narrativa porque crio música.
+        {a.bio2}
       </p>
 
       <div style={{ height: '1px', background: 'var(--border)', margin: '32px 0' }} />
 
       <div
-        className="reveal about-studio-stats"
+        className="about-studio-stats"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
           gap: '10px',
           marginTop: '32px',
-          transitionDelay: '200ms',
         }}
       >
-        <StatCard variant="default" num="+6" label="Projetos entregues" />
-        <StatCard variant="accent" num="3+" label="Anos de experiência" />
-        <StatCard variant="accent" num="∞" label="Curiosidade" />
-        <StatCard variant="default" num="BR" label="Brasil" />
+        <div className="reveal" style={{ transitionDelay: '200ms' }}><StatCard variant="default" num="+6" label={a.stat1Label} /></div>
+        <div className="reveal" style={{ transitionDelay: '260ms' }}><StatCard variant="accent" num="3+" label={a.stat2Label} /></div>
+        <div className="reveal" style={{ transitionDelay: '320ms' }}><StatCard variant="accent" num="∞" label={a.stat3Label} /></div>
+        <div className="reveal" style={{ transitionDelay: '380ms' }}><StatCard variant="default" num="BR" label={a.stat4Label} /></div>
       </div>
 
     </div>

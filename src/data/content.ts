@@ -15,12 +15,10 @@ export const ROLES_CREATIVE: string[] = [
 export const MARQUEE_ITEMS: string[] = [
   'Desenvolvedor Fullstack',
   'React · Node.js · TypeScript',
-  'Estudante de ADS',
-  'Código limpo',
   'Interfaces que funcionam',
+  'Perfeccionista',
   'Designer Gráfico',
   'DJ & VJ',
   'Produtor Musical',
-  'Perfeccionista',
   'Curioso',
 ];

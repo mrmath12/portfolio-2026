@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 import Tag from '@/components/ui/Tag';
 
@@ -10,6 +11,10 @@ type ProjectFeaturedProps = {
 };
 
 export default function ProjectFeatured({ project: p, onClick }: ProjectFeaturedProps) {
+  const { t } = useTranslation();
+  const filterLabels = t.projects.filterLabels as Record<string, string>;
+  const descs = t.projects.descs as Record<number, string>;
+
   return (
     <div
       onClick={onClick}
@@ -87,7 +92,7 @@ export default function ProjectFeatured({ project: p, onClick }: ProjectFeatured
             color: 'var(--brand)',
           }}
         >
-          {p.cat} · Em destaque
+          {filterLabels[p.cat] ?? p.cat} · {t.projects.featuredBadge}
         </div>
         <div
           style={{
@@ -101,12 +106,12 @@ export default function ProjectFeatured({ project: p, onClick }: ProjectFeatured
           {p.title}
         </div>
         <div style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.6 }}>
-          {p.desc}
+          {descs[p.id] ?? p.desc}
         </div>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {p.tags.map((t, i) => (
-            <Tag key={t} variant={i === 0 ? 'brand' : 'default'}>
-              {t}
+          {p.tags.map((tag, i) => (
+            <Tag key={tag} variant={i === 0 ? 'brand' : 'default'}>
+              {tag}
             </Tag>
           ))}
         </div>

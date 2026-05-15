@@ -6,7 +6,8 @@ export default function useScrollReveal(deps: DependencyList = []): void {
   const { revealEnabled } = useLayout();
 
   useEffect(() => {
-    if (!revealEnabled) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!revealEnabled || prefersReducedMotion) {
       document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
       return;
     }

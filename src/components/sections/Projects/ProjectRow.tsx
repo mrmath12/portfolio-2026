@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 import Tag from '@/components/ui/Tag';
 
@@ -13,6 +14,8 @@ type ProjectRowProps = {
 export default function ProjectRow({ project: p, index, onClick }: ProjectRowProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+  const filterLabels = t.projects.filterLabels as Record<string, string>;
 
   const handleMouseEnter = () => {
     if (overlayRef.current) overlayRef.current.style.opacity = '1';
@@ -92,15 +95,15 @@ export default function ProjectRow({ project: p, index, onClick }: ProjectRowPro
             marginTop: 2,
           }}
         >
-          {p.cat}
+          {filterLabels[p.cat] ?? p.cat}
         </div>
       </div>
 
       {/* Tags (first 2) */}
       <div style={{ display: 'flex', gap: 5, justifyContent: 'flex-end' }}>
-        {p.tags.slice(0, 2).map((t, i) => (
-          <Tag key={t} variant={i === 0 ? 'brand' : 'default'}>
-            {t}
+        {p.tags.slice(0, 2).map((tag, i) => (
+          <Tag key={tag} variant={i === 0 ? 'brand' : 'default'}>
+            {tag}
           </Tag>
         ))}
       </div>

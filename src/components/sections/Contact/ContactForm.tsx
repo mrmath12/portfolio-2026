@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 import Button from '@/components/ui/Button';
 
 const fieldBase: React.CSSProperties = {
@@ -26,13 +27,7 @@ const labelStyle: React.CSSProperties = {
   display: 'block',
 };
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <label style={labelStyle}>{label}</label>
@@ -44,10 +39,14 @@ function Field({
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState<string | null>(null);
+  const { t } = useTranslation();
+  const f = t.contact.form;
 
   const inputStyle = (name: string): React.CSSProperties => ({
     ...fieldBase,
     borderColor: focused === name ? 'var(--brand)' : 'var(--border)',
+    boxShadow: focused === name ? '0 0 0 3px rgba(117,176,156,0.12)' : 'none',
+    transition: 'border-color 150ms ease, box-shadow 150ms ease',
   });
 
   if (submitted) {
@@ -62,10 +61,10 @@ export default function ContactForm() {
         }}
       >
         <div style={{ fontSize: '28px', fontWeight: 700, color: 'var(--brand)', marginBottom: '8px' }}>
-          Mensagem enviada!
+          {f.successTitle}
         </div>
         <div style={{ fontSize: '14px', color: 'var(--muted)' }}>
-          Obrigado pelo contato. Retorno em até 48h.
+          {f.successDesc}
         </div>
       </div>
     );
@@ -80,10 +79,10 @@ export default function ContactForm() {
       style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
     >
       <div className="contact-form-inline-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-        <Field label="Nome">
+        <Field label={f.fieldName}>
           <input
             type="text"
-            placeholder="Seu nome"
+            placeholder={f.placeholderName}
             required
             className="contact-field"
             style={inputStyle('nome')}
@@ -91,10 +90,10 @@ export default function ContactForm() {
             onBlur={() => setFocused(null)}
           />
         </Field>
-        <Field label="Email">
+        <Field label={f.fieldEmail}>
           <input
             type="email"
-            placeholder="seu@email.com"
+            placeholder={f.placeholderEmail}
             required
             className="contact-field"
             style={inputStyle('email')}
@@ -104,10 +103,10 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      <Field label="Tipo de projeto">
+      <Field label={f.fieldType}>
         <input
           type="text"
-          placeholder="Ex: Web App, API, Mobile, Landing Page…"
+          placeholder={f.placeholderType}
           className="contact-field"
           style={inputStyle('tipo')}
           onFocus={() => setFocused('tipo')}
@@ -115,10 +114,10 @@ export default function ContactForm() {
         />
       </Field>
 
-      <Field label="Mensagem">
+      <Field label={f.fieldMessage}>
         <textarea
           required
-          placeholder="Conta mais sobre o projeto…"
+          placeholder={f.placeholderMessage}
           className="contact-field"
           style={{
             ...inputStyle('mensagem'),
@@ -132,7 +131,7 @@ export default function ContactForm() {
 
       <div>
         <Button variant="primary" type="submit">
-          Enviar mensagem
+          {f.submit}
         </Button>
       </div>
     </form>

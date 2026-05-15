@@ -1,29 +1,14 @@
 'use client';
 
 import { useLayout } from '@/context/LayoutContext';
-import { ROLES_DEV, ROLES_CREATIVE } from '@/data/content';
+import { useTranslation } from '@/hooks/useTranslation';
 import Tag from '@/components/ui/Tag';
-
-const Placeholder = () => (
-  <div
-    style={{
-      background: 'var(--bg2)',
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: 64,
-      opacity: 0.15,
-    }}
-  >
-    ◈
-  </div>
-);
 
 export default function HeroEditorial() {
   const { focus } = useLayout();
-  const roles = focus === 'creative' ? ROLES_CREATIVE : ROLES_DEV;
+  const { t } = useTranslation();
+  const roles = focus === 'creative' ? t.rolesCreative : t.rolesDev;
+  const h = t.heroEditorial;
 
   return (
     <div
@@ -41,11 +26,9 @@ export default function HeroEditorial() {
       }}
     >
       {/* Left column */}
-      <div
-        className="reveal"
-        style={{ display: 'flex', flexDirection: 'column', gap: 26 }}
-      >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
         <div
+          className="reveal"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -58,6 +41,7 @@ export default function HeroEditorial() {
           }}
         >
           <span
+            className="available-dot"
             style={{
               width: 6,
               height: 6,
@@ -67,26 +51,31 @@ export default function HeroEditorial() {
               flexShrink: 0,
             }}
           />
-          Disponível para projetos · 2026
+          {h.available}
         </div>
 
         <h1
+          className="reveal"
           style={{
             fontSize: 'clamp(64px, 8vw, 108px)',
             fontWeight: 700,
             color: 'var(--fg1)',
             lineHeight: 0.92,
             letterSpacing: '-0.04em',
+            transitionDelay: '100ms',
           }}
         >
-          Dev que
+          {h.headline1}
           <br />
-          <em style={{ fontStyle: 'normal', color: 'var(--brand)' }}>entende</em>
+          <em style={{ fontStyle: 'normal', color: 'var(--brand)' }}>{h.headline2}</em>
           <br />
-          design.
+          {h.headline3}
         </h1>
 
-        <div style={{ display: 'flex', gap: 16, alignItems: 'stretch' }}>
+        <div
+          className="reveal"
+          style={{ display: 'flex', gap: 16, alignItems: 'stretch', transitionDelay: '220ms' }}
+        >
           <div
             style={{
               width: 3,
@@ -97,12 +86,14 @@ export default function HeroEditorial() {
             }}
           />
           <p style={{ fontSize: 17, color: 'var(--muted)', lineHeight: 1.65 }}>
-            Desenvolvedor Fullstack, estudante de ADS, e criativo múltiplo — design gráfico,
-            música, VJ. Código limpo e sensibilidade estética no mesmo pacote.
+            {h.bio}
           </p>
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7, paddingTop: 4 }}>
+        <div
+          className="reveal"
+          style={{ display: 'flex', flexWrap: 'wrap', gap: 7, paddingTop: 4, transitionDelay: '320ms' }}
+        >
           {roles.map((r, i) => (
             <Tag key={r} variant={i % 2 === 0 ? 'brand' : 'accent'}>
               {r}
@@ -124,7 +115,6 @@ export default function HeroEditorial() {
             aspectRatio: '3 / 4',
           }}
         >
-          {/* <Placeholder /> */}
           <img className='object-cover h-full' src="/photo-01.jpg" alt="Matheus" />
         </div>
 
@@ -151,10 +141,10 @@ export default function HeroEditorial() {
               marginBottom: 3,
             }}
           >
-            Baseado em
+            {h.basedInLabel}
           </div>
           <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--fg1)' }}>
-            Brasil 🇧🇷
+            {h.basedInValue}
           </div>
         </div>
 
@@ -181,10 +171,10 @@ export default function HeroEditorial() {
               marginBottom: 2,
             }}
           >
-            Status
+            {h.statusLabel}
           </div>
           <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--fg1)' }}>
-            Disponível
+            {h.statusValue}
           </div>
         </div>
       </div>

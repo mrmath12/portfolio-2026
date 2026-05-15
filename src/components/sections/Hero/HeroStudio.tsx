@@ -1,9 +1,8 @@
 'use client';
 
 import { useLayout } from '@/context/LayoutContext';
-import { ROLES_DEV, ROLES_CREATIVE } from '@/data/content';
+import { useTranslation } from '@/hooks/useTranslation';
 import Button from '@/components/ui/Button';
-import Tag from '@/components/ui/Tag';
 
 const Placeholder = () => (
   <div
@@ -24,7 +23,9 @@ const Placeholder = () => (
 
 export default function HeroStudio() {
   const { focus } = useLayout();
-  const roles = focus === 'creative' ? ROLES_CREATIVE : ROLES_DEV;
+  const { t } = useTranslation();
+  const roles = focus === 'creative' ? t.rolesCreative : t.rolesDev;
+  const h = t.heroStudio;
 
   return (
     <div
@@ -39,7 +40,6 @@ export default function HeroStudio() {
     >
       {/* Left column */}
       <div
-        className="reveal"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -53,7 +53,10 @@ export default function HeroStudio() {
         }}
       >
         {/* Kicker pills */}
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32 }}>
+        <div
+          className="reveal"
+          style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 32, transitionDelay: '0ms' }}
+        >
           {roles.map((r, i) => (
             <span
               key={r}
@@ -77,6 +80,7 @@ export default function HeroStudio() {
         </div>
 
         <h1
+          className="reveal"
           style={{
             fontSize: 'clamp(60px, 7vw, 100px)',
             fontWeight: 800,
@@ -84,32 +88,37 @@ export default function HeroStudio() {
             lineHeight: 0.9,
             letterSpacing: '-0.04em',
             marginBottom: 28,
+            transitionDelay: '100ms',
           }}
         >
-          <span style={{ display: 'block' }}>Dev que</span>
-          <span style={{ display: 'block', color: 'var(--brand)' }}>pensa</span>
-          <span style={{ display: 'block' }}>em produto.</span>
+          <span style={{ display: 'block' }}>{h.headline1}</span>
+          <span style={{ display: 'block', color: 'var(--brand)' }}>{h.headline2}</span>
+          <span style={{ display: 'block' }}>{h.headline3}</span>
         </h1>
 
         <p
+          className="reveal"
           style={{
             fontSize: 16,
             color: 'var(--muted)',
             lineHeight: 1.65,
             maxWidth: 400,
             marginBottom: 36,
+            transitionDelay: '220ms',
           }}
         >
-          Desenvolvedor Fullstack com visão de produto e sensibilidade de design. Código
-          limpo, interfaces que funcionam — e um background criativo que faz a diferença.
+          {h.bio}
         </p>
 
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+        <div
+          className="reveal"
+          style={{ display: 'flex', gap: 12, flexWrap: 'wrap', transitionDelay: '310ms' }}
+        >
           <Button variant="primary" href="#projetos">
-            Ver Projetos
+            {h.ctaPrimary}
           </Button>
           <Button variant="ghost" href="#contato">
-            Fale comigo
+            {h.ctaSecondary}
           </Button>
         </div>
 

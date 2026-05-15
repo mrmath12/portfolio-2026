@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from '@/hooks/useTranslation';
 import type { Project } from '@/types';
 import Tag from '@/components/ui/Tag';
 
@@ -10,6 +11,10 @@ type ProjectCardProps = {
 };
 
 export default function ProjectCard({ project: p, onClick }: ProjectCardProps) {
+  const { t } = useTranslation();
+  const filterLabels = t.projects.filterLabels as Record<string, string>;
+  const descs = t.projects.descs as Record<number, string>;
+
   return (
     <div
       onClick={onClick}
@@ -93,7 +98,7 @@ export default function ProjectCard({ project: p, onClick }: ProjectCardProps) {
             marginBottom: 5,
           }}
         >
-          {p.cat}
+          {filterLabels[p.cat] ?? p.cat}
         </div>
         <div
           style={{
@@ -107,12 +112,12 @@ export default function ProjectCard({ project: p, onClick }: ProjectCardProps) {
           {p.title}
         </div>
         <div style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.55, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-          {p.desc}
+          {descs[p.id] ?? p.desc}
         </div>
         <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginTop: 12 }}>
-          {p.tags.slice(0, 3).map((t, i) => (
-            <Tag key={t} variant={i === 0 ? 'brand' : 'default'}>
-              {t}
+          {p.tags.slice(0, 3).map((tag, i) => (
+            <Tag key={tag} variant={i === 0 ? 'brand' : 'default'}>
+              {tag}
             </Tag>
           ))}
           {p.tags.length > 3 && (

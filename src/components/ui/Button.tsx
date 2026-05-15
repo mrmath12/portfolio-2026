@@ -59,21 +59,25 @@ export default function Button({
         target={target}
         rel={target === '_blank' ? 'noopener noreferrer' : undefined}
         style={style}
-        className={className}
+        className={`btn ${className}`}
         onMouseEnter={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = 'scale(1.025)';
           if (variant === 'primary') {
-            (e.currentTarget as HTMLElement).style.background = 'var(--brand-lt)';
+            el.style.background = 'var(--brand-lt)';
           } else {
-            (e.currentTarget as HTMLElement).style.borderColor = 'var(--brand)';
-            (e.currentTarget as HTMLElement).style.color = 'var(--brand)';
+            el.style.borderColor = 'var(--brand)';
+            el.style.color = 'var(--brand)';
           }
         }}
         onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.transform = '';
           if (variant === 'primary') {
-            (e.currentTarget as HTMLElement).style.background = 'var(--brand)';
+            el.style.background = 'var(--brand)';
           } else {
-            (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-            (e.currentTarget as HTMLElement).style.color = 'var(--fg2)';
+            el.style.borderColor = 'var(--border)';
+            el.style.color = 'var(--fg2)';
           }
         }}
       >
@@ -86,22 +90,26 @@ export default function Button({
     <button
       type={type}
       style={style}
-      className={className}
+      className={`btn ${className}`}
       onClick={onClick}
       onMouseEnter={(e) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = 'scale(1.025)';
         if (variant === 'primary') {
-          (e.currentTarget as HTMLElement).style.background = 'var(--brand-lt)';
+          el.style.background = 'var(--brand-lt)';
         } else {
-          (e.currentTarget as HTMLElement).style.borderColor = 'var(--brand)';
-          (e.currentTarget as HTMLElement).style.color = 'var(--brand)';
+          el.style.borderColor = 'var(--brand)';
+          el.style.color = 'var(--brand)';
         }
       }}
       onMouseLeave={(e) => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = '';
         if (variant === 'primary') {
-          (e.currentTarget as HTMLElement).style.background = 'var(--brand)';
+          el.style.background = 'var(--brand)';
         } else {
-          (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)';
-          (e.currentTarget as HTMLElement).style.color = 'var(--fg2)';
+          el.style.borderColor = 'var(--border)';
+          el.style.color = 'var(--fg2)';
         }
       }}
     >

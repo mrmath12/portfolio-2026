@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLayout } from '@/context/LayoutContext';
+import { useTranslation } from '@/hooks/useTranslation';
 import { PROJECTS } from '@/data/projects';
 import { PROJECT_FILTERS } from '@/data/skills';
 import type { Project } from '@/types';
@@ -20,9 +21,9 @@ type ProjectsProps = {
 };
 
 export default function Projects({ onProjectClick }: ProjectsProps) {
-  const { 
-    // layout, 
-    activeFilter, featuredIdOverride, setActiveFilter } = useLayout();
+  const { activeFilter, featuredIdOverride, setActiveFilter } = useLayout();
+  const { t } = useTranslation();
+  const p = t.projects;
   const filtered = filterProjects(PROJECTS, activeFilter);
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [seenIds, setSeenIds] = useState<Set<number>>(() => {
@@ -50,7 +51,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
     }, 5000);
     return () => clearInterval(id);
   }, [featuredIdOverride]);
-  
+
   const header = (
     <div
       className="reveal"
@@ -64,7 +65,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
       }}
     >
       <div>
-        <SectionLabel>Portfólio</SectionLabel>
+        <SectionLabel>{p.sectionLabel}</SectionLabel>
         <h2
           style={{
             fontSize: 'clamp(36px, 5vw, 56px)',
@@ -75,9 +76,9 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
             margin: 0,
           }}
         >
-          Projetos
+          {p.headline1}
           <br />
-          Selecionados
+          {p.headline2}
         </h2>
       </div>
       <FilterBar
@@ -89,16 +90,18 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
   );
 
   const featured =
-    (featuredIdOverride != null ? filtered.find((p) => p.id === featuredIdOverride) : null) ??
+    (featuredIdOverride != null ? filtered.find((proj) => proj.id === featuredIdOverride) : null) ??
     filtered[featuredIndex % filtered.length];
-  const remaining = filtered.filter((p) => p.id !== featured?.id);
+  const remaining = filtered.filter((proj) => proj.id !== featured?.id);
 
   return (
     <div style={{ maxWidth: 1400, margin: '0 auto' }}>
       {header}
       {featured && (
         <div className="reveal">
-          <ProjectFeatured project={featured} onClick={() => onProjectClick(featured.id)} />
+          <div key={featured.id} className="featured-anim">
+            <ProjectFeatured project={featured} onClick={() => onProjectClick(featured.id)} />
+          </div>
         </div>
       )}
       <div
@@ -108,9 +111,9 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
           gap: 18,
         }}
       >
-        {remaining.map((p, index) => (
-          <div key={p.id} className={seenIds.has(p.id) ? 'reveal visible' : 'reveal'} style={{ transitionDelay: `${index * 40}ms` }}>
-            <ProjectCard project={p} onClick={() => onProjectClick(p.id)} />
+        {remaining.map((proj, index) => (
+          <div key={proj.id} className={seenIds.has(proj.id) ? 'reveal visible' : 'reveal'} style={{ transitionDelay: `${index * 40}ms` }}>
+            <ProjectCard project={proj} onClick={() => onProjectClick(proj.id)} />
           </div>
         ))}
       </div>

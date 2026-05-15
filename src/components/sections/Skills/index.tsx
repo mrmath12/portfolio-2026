@@ -1,8 +1,15 @@
+'use client';
+
+import { useTranslation } from '@/hooks/useTranslation';
+import { SKILLS_DATA, CREATIVE_CATEGORIES } from '@/data/skills';
 import SectionLabel from '@/components/ui/SectionLabel';
 import SkillTag from '@/components/ui/SkillTag';
-import { SKILLS_DATA, CREATIVE_CATEGORIES } from '@/data/skills';
 
 export default function Skills() {
+  const { t } = useTranslation();
+  const s = t.skills;
+  const categoryLabels = s.categoryLabels as Record<string, string>;
+
   return (
     <div
       className="skills-grid"
@@ -17,7 +24,7 @@ export default function Skills() {
     >
       {/* Left column */}
       <div className="reveal">
-        <SectionLabel>Stack</SectionLabel>
+        <SectionLabel>{s.sectionLabel}</SectionLabel>
         <h2
           style={{
             fontSize: 'clamp(32px, 4vw, 48px)',
@@ -26,7 +33,7 @@ export default function Skills() {
             lineHeight: 1.05,
             marginBottom: '20px',
           }}
-          dangerouslySetInnerHTML={{ __html: 'Tecnologia<br>que entrega.' }}
+          dangerouslySetInnerHTML={{ __html: s.headline }}
         />
         <p
           style={{
@@ -36,8 +43,7 @@ export default function Skills() {
             marginBottom: '28px',
           }}
         >
-          Stack focado em React, Node.js e TypeScript. Conforto no front,
-          no back e no mobile — do MVP ao deploy em produção.
+          {s.bio}
         </p>
         <div
           style={{
@@ -57,7 +63,7 @@ export default function Skills() {
               marginBottom: '8px',
             }}
           >
-            Diferencial criativo
+            {s.creativeLabel}
           </div>
           <p
             style={{
@@ -67,8 +73,7 @@ export default function Skills() {
               margin: 0,
             }}
           >
-            Design gráfico, VJ e produção musical me dão uma leitura de interface,
-            narrativa visual e UX que a maioria dos devs não tem.
+            {s.creativeBio}
           </p>
         </div>
       </div>
@@ -89,7 +94,7 @@ export default function Skills() {
                   marginBottom: '10px',
                 }}
               >
-                {cat}
+                {categoryLabels[cat] ?? cat}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {skills.map((skill) => (

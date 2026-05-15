@@ -1,13 +1,15 @@
 'use client';
 
 import { useLayout } from '@/context/LayoutContext';
-import { ROLES_DEV, ROLES_CREATIVE } from '@/data/content';
+import { useTranslation } from '@/hooks/useTranslation';
 import Button from '@/components/ui/Button';
 import Tag from '@/components/ui/Tag';
 
 export default function HeroMinimal() {
   const { focus } = useLayout();
-  const roles = focus === 'creative' ? ROLES_CREATIVE : ROLES_DEV;
+  const { t } = useTranslation();
+  const roles = focus === 'creative' ? t.rolesCreative : t.rolesDev;
+  const h = t.heroMinimal;
 
   return (
     <div
@@ -34,11 +36,10 @@ export default function HeroMinimal() {
           marginBottom: 20,
         }}
       >
-        Rio de Janeiro, BR — 2026
+        {h.location}
       </div>
 
       <h1
-        className="reveal"
         style={{
           fontSize: 'clamp(72px, 12vw, 170px)',
           fontWeight: 800,
@@ -47,17 +48,19 @@ export default function HeroMinimal() {
           letterSpacing: '-0.05em',
         }}
       >
-        <span style={{ display: 'block' }}>Matheus</span>
+        <span className="reveal" style={{ display: 'block', transitionDelay: '0ms' }}>Matheus</span>
         <span
+          className="reveal"
           style={{
             display: 'block',
             WebkitTextStroke: '1.5px rgba(247,251,249,0.2)',
             color: 'transparent',
+            transitionDelay: '80ms',
           }}
         >
           Fullstack
         </span>
-        <span style={{ display: 'block' }}>Dev.</span>
+        <span className="reveal" style={{ display: 'block', transitionDelay: '160ms' }}>Dev.</span>
       </h1>
 
       <div
@@ -69,21 +72,20 @@ export default function HeroMinimal() {
           marginTop: 48,
           flexWrap: 'wrap',
           gap: 24,
-          transitionDelay: '100ms',
+          transitionDelay: '280ms',
         }}
       >
         {/* Left: description + buttons */}
         <div style={{ maxWidth: 400 }}>
           <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.65, marginBottom: 20 }}>
-            Desenvolvedor Fullstack, estudante de ADS e criativo múltiplo. Design gráfico,
-            música, VJ. Código limpo com sensibilidade estética.
+            {h.bio}
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <Button variant="primary" href="#projetos">
-              Ver Projetos
+              {h.ctaPrimary}
             </Button>
             <Button variant="ghost" href="#contato">
-              Contato
+              {h.ctaSecondary}
             </Button>
           </div>
         </div>
@@ -96,7 +98,7 @@ export default function HeroMinimal() {
             gap: 8,
             flexWrap: 'wrap',
             justifyContent: 'flex-end',
-            transitionDelay: '200ms',
+            transitionDelay: '380ms',
           }}
         >
           {roles.map((r, i) => (

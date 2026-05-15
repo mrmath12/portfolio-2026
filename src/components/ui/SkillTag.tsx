@@ -28,7 +28,7 @@ const baseStyle: React.CSSProperties = {
 
 export default function SkillTag({ variant = 'default', children }: SkillTagProps) {
   return (
-    <span style={{ ...baseStyle, ...variantStyle[variant] }}>
+    <span className="skill-tag-lift" style={{ ...baseStyle, ...variantStyle[variant] }}>
       {children}
     </span>
   );

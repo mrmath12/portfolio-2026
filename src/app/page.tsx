@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLayout } from '@/context/LayoutContext';
 import useScrollReveal from '@/hooks/useScrollReveal';
 import Nav from '@/components/layout/Nav';
+import LangToggle from '@/components/layout/LangToggle';
 import Footer from '@/components/layout/Footer';
 import SectionDivider from '@/components/layout/SectionDivider';
 import Hero from '@/components/sections/Hero';
@@ -26,6 +27,7 @@ export default function Home() {
   return (
     <>
       <Nav />
+      <LangToggle />
       <section id="hero">
         <Hero />
       </section>

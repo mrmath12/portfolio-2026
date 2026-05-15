@@ -1,12 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
-import { MARQUEE_ITEMS } from '@/data/content';
-
-const doubledItems = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
+  const items = t.marqueeItems as string[];
+  const doubledItems = [...items, ...items];
 
   return (
     <div style={{ overflow: 'hidden' }}>

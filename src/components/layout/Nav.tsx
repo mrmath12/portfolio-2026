@@ -1,25 +1,24 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const SECTION_IDS = ['projetos', 'skills', 'sobre', 'contato'] as const;
 type SectionId = (typeof SECTION_IDS)[number];
 
-// Desktop links — Contato removido; o CTA é o único ponto de entrada para contato
-const NAV_LINKS = [
-  { label: 'Projetos',    sectionId: 'projetos' },
-  { label: 'Habilidades', sectionId: 'skills'   },
-  { label: 'Sobre',       sectionId: 'sobre'    },
+const NAV_LINK_KEYS = [
+  { labelKey: 'projetos' as const, sectionId: 'projetos' as const },
+  { labelKey: 'habilidades' as const, sectionId: 'skills' as const },
+  { labelKey: 'sobre' as const, sectionId: 'sobre' as const },
 ] as const;
 
-// Bottom tab bar mobile — todas as quatro seções
-const TAB_ITEMS = [
-  { label: 'Projetos', sectionId: 'projetos' },
-  { label: 'Skills',   sectionId: 'skills'   },
-  { label: 'Sobre',    sectionId: 'sobre'    },
-  { label: 'Contato',  sectionId: 'contato'  },
+const TAB_ITEM_KEYS = [
+  { labelKey: 'projetos' as const, sectionId: 'projetos' as const },
+  { labelKey: 'skills' as const, sectionId: 'skills' as const },
+  { labelKey: 'sobre' as const, sectionId: 'sobre' as const },
+  { labelKey: 'contato' as const, sectionId: 'contato' as const },
 ] as const;
 
 const SECTION_VISIBILITY_THRESHOLD = 0.35;
@@ -27,14 +26,12 @@ const SECTION_VISIBILITY_THRESHOLD = 0.35;
 // ─── Hook — Active Section Tracker ───────────────────────────────────────────
 
 function useActiveSectionTracker(): SectionId | '' {
-  // Inicializa em 'projetos' para que o primeiro link já apareça ativo no load
   const [activeSectionId, setActiveSectionId] = useState<SectionId | ''>('projetos');
 
   useEffect(() => {
     function handleIntersection(entries: IntersectionObserverEntry[]): void {
       const intersecting = entries.filter((e) => e.isIntersecting);
       if (intersecting.length === 0) return;
-      // Escolhe a seção com maior área visível no batch — evita misfires em scroll rápido
       const best = intersecting.reduce((a, b) =>
         b.intersectionRatio > a.intersectionRatio ? b : a
       );
@@ -43,7 +40,6 @@ function useActiveSectionTracker(): SectionId | '' {
 
     const observer = new IntersectionObserver(handleIntersection, {
       threshold: SECTION_VISIBILITY_THRESHOLD,
-      // Desconta a altura da nav fixa para seções curtas não perderem o threshold
       rootMargin: '-56px 0px 0px 0px',
     });
 
@@ -62,8 +58,8 @@ function useActiveSectionTracker(): SectionId | '' {
 
 function buildNavLinkClassName(isActive: boolean): string {
   const base = [
-    'text-6 font-medium no-underline tracking-[0.04em]',
-    'px-[18px] py-[18px] transition-colors duration-150',
+    'text-6 font-semibold no-underline tracking-[0.04em]',
+    'px-3.5 py-[18px] lg:px-[18px] transition-colors duration-150',
     'hover:text-[var(--fg1)]',
   ];
   return [...base, isActive ? 'text-[var(--brand)]' : 'text-[var(--muted)]'].join(' ');
@@ -116,13 +112,14 @@ const TAB_ICONS: Record<string, React.ComponentType> = {
 // ─── Component — Mobile Tab Bar ───────────────────────────────────────────────
 
 function MobileTabBar({ activeSectionId }: { activeSectionId: SectionId | '' }) {
+  const { t } = useTranslation();
   return (
     <nav
-      aria-label="Navegação móvel"
+      aria-label={t.nav.mobileAriaLabel}
       className="fixed bottom-0 left-0 right-0 z-[200] flex md:hidden border-t border-[var(--border)]"
       style={{ background: 'rgba(16,27,23,0.96)' }}
     >
-      {TAB_ITEMS.map(({ label, sectionId }) => {
+      {TAB_ITEM_KEYS.map(({ labelKey, sectionId }) => {
         const isActive = activeSectionId === sectionId;
         const Icon = TAB_ICONS[sectionId];
         return (
@@ -134,10 +131,12 @@ function MobileTabBar({ activeSectionId }: { activeSectionId: SectionId | '' }) 
               'flex flex-1 flex-col items-center justify-center gap-1.5 no-underline transition-colors duration-150',
               isActive ? 'text-[var(--brand)]' : 'text-[var(--muted)]',
             ].join(' ')}
-            style={{ padding: '12px 0', paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
+            style={{ padding: '10px 0', paddingBottom: 'max(10px, env(safe-area-inset-bottom))', minHeight: 52 }}
           >
             <Icon />
-            <span className="text-[10px] font-medium tracking-[0.04em] uppercase">{label}</span>
+            <span className="text-[0.625rem] font-medium tracking-[0.04em] uppercase">
+              {t.nav.links[labelKey]}
+            </span>
           </a>
         );
       })}
@@ -149,28 +148,27 @@ function MobileTabBar({ activeSectionId }: { activeSectionId: SectionId | '' }) 
 
 export default function Nav() {
   const activeSectionId = useActiveSectionTracker();
+  const { t } = useTranslation();
 
   return (
     <>
       <nav
-        aria-label="Navegação principal"
+        aria-label={t.nav.ariaLabel}
         className="fixed hidden md:flex h-14 justify-center top-0 left-0 right-0 z-[200] backdrop-blur-[16px] border-b border-[var(--border)]"
         style={{ background: 'rgba(16,27,23,0.88)' }}
       >
         <div className="grid grid-cols-[auto_1fr_auto] items-center w-full max-w-[1400px]">
 
-          {/* Logo — ancora para o topo da página */}
           <a
             href="#hero"
-            aria-label="Matheus — voltar ao início"
-            className="text-7 font-bold text-[var(--fg1)] tracking-[-0.03em] no-underline px-10 py-[18px]"
+            aria-label={t.nav.logoAriaLabel}
+            className="text-7 font-bold text-[var(--fg1)] tracking-[-0.04em] no-underline px-8 lg:px-10 py-[18px]"
           >
             M<span className="text-[var(--brand)]">.</span>
           </a>
 
-          {/* Links de navegação — visíveis apenas no desktop */}
-          <div className="hidden md:flex justify-center gap-4">
-            {NAV_LINKS.map(({ label, sectionId }) => (
+          <div className="hidden md:flex justify-center gap-2 lg:gap-4">
+            {NAV_LINK_KEYS.map(({ labelKey, sectionId }) => (
               <a
                 key={sectionId}
                 href={`#${sectionId}`}
@@ -178,23 +176,24 @@ export default function Nav() {
                 aria-current={activeSectionId === sectionId ? 'true' : undefined}
                 className={buildNavLinkClassName(activeSectionId === sectionId)}
               >
-                {label}
+                {t.nav.links[labelKey]}
               </a>
             ))}
           </div>
 
-          {/* CTA — único ponto de entrada para contato no desktop */}
-          <a
-            href="#contato"
-            className="hidden md:flex items-center self-stretch border-l border-[var(--border-soft)] px-10 text-6 font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-150 text-[var(--brand)] hover:text-[var(--brand-lt)]"
-          >
-            Fale comigo
-          </a>
+          {/* CTA */}
+          <div className="hidden md:flex items-stretch">
+            <a
+              href="#contato"
+              className="flex items-center self-stretch border-l border-[var(--border-soft)] px-8 lg:px-10 text-6 font-semibold uppercase tracking-[0.06em] no-underline transition-colors duration-150 text-[var(--brand)] hover:text-[var(--brand-lt)]"
+            >
+              {t.nav.cta}
+            </a>
+          </div>
 
         </div>
       </nav>
 
-      {/* Bottom tab bar — navegação mobile */}
       <MobileTabBar activeSectionId={activeSectionId} />
     </>
   );

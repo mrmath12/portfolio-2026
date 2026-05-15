@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Gemunu_Libre } from "next/font/google";
+import { Chakra_Petch } from "next/font/google";
+import { LanguageProvider } from "@/context/LanguageContext";
 import { LayoutProvider } from "@/context/LayoutContext";
 import "./globals.css";
 
-const gemunuLibre = Gemunu_Libre({
+const fontFamily = Chakra_Petch({
   variable: "--font-gemunu",
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={gemunuLibre.variable}>
+    <html lang="pt-BR" className={fontFamily.variable}>
       <body className="font-sans">
-        <LayoutProvider>{children}</LayoutProvider>
+        <LanguageProvider>
+          <LayoutProvider>{children}</LayoutProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
